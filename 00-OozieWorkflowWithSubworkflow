@@ -1,0 +1,28 @@
+This gist includes components of a oozie workflow application - scripts/code, sample data
+and commands;  Oozie actions covered: sub-workflow, email java main action, 
+sqoop action (to mysql);  Oozie controls covered: decision;
+
+Pictorial overview:
+--------------------
+http://hadooped.blogspot.com/2013/07/apache-oozie-part-8-subworkflow.html
+
+Usecase:
+--------
+Parse Syslog generated log files to generate reports; Export reports to RDBMS;
+
+Includes:
+---------
+Sample data defintion and structure  01-SampleDataAndStructure
+Data and script download:            02-DataAndScriptDownload
+Data load commands:                  03-HdfsLoadCommands
+Mysql database setup:                04-mysqlDBSetup
+Sqoop task -standalone tryout:       05-SqoopStandAloneTryout
+App job properties file:             06-JobProperties
+Workflow defintion -Parent:          07-WorkflowXMLMain
+Independent test of LogParser jar:   08-LogParserStandaloneTestHowTo
+Workflow defintion -DataExporter:    09-SubWorkflowXMLDataExporter
+Oozie commands:                      10-OozieJobExecutionCommands
+Output of LogParser:                 11a-OutputLogParser
+Output in mysql:                     11b-OutputDataExporter
+Oozie web console - screenshots:     12-OozieWebConsoleScreenshots
+Java LogParser code:                 13-JavaCodeHyperlink
