@@ -1,0 +1,40 @@
+<workflow-app name="Covid_App" xmlns="uri:oozie:workflow:0.1">
+
+     <start to="shell_action"/>
+
+     <action name="shell_action">
+    	<shell xmlns="uri:oozie:shell-action:0.1">
+	    <job-tracker>${jobTracker}</job-tracker>
+	    <name-node>${nameNode}</name-node>
+	    <exec>downloadcovid.sh</exec>
+	    <file>${appPath}/downloadcovid.sh#downloadcovid.sh</file>
+	    <capture-output/>
+        </shell>
+            <ok to="hiveCommands"/>
+            <error to="killJobAction"/>
+     </action>
+
+     <action name="hiveCommands">
+        <hive xmlns="uri:oozie:hive-action:0.5">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <job-xml>hive-site.xml</job-xml>
+            <script>create_ext_tables.hql</script>
+            <param>hive_db_name=${hive_db_name}</param>
+            <param>hive_ext_table_raw_data=${hive_ext_table_raw_data}</param>
+	    <param>hive_table=${hive_table}</param>
+            <!--Assign variables captured from shell_action output-->
+	    <param>DATE_LAST=${wf:actionData('shell_action')['date_last']}</param>
+	    <param>hdfs_dir_raw_data=${wf:actionData('shell_action')['hdfs_dir_raw_data']}</param>
+        </hive>
+            <ok to="end"/>
+            <error to="killJobAction"/>
+     </action>
+
+     <kill name="killJobAction">
+            <message>"Killed job due to error: ${wf:errorMessage(wf:lastErrorNode())}"</message>
+     </kill>
+     <end name="end" />
+</workflow-app>
+
+
