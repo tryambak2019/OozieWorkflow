@@ -1,8 +1,6 @@
-# Oozie pipeline to automate download and ingest data to hive tables
+## Oozie pipeline to automate download and ingest data to hive tables
 
-An oozie pipeline to perform the following Actions. Schedule the job to run at everyday.
-
-Action 1 - Execute script bash that downloads and store data for yesterday
+Action 1 - Execute script bash that downloads and store data for yesterday. Schedule the job to run at everyday.
 
 Action 2 - Stores data in partitioned directory in HDFS
 
